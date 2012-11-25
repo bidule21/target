@@ -15,13 +15,13 @@ void setup() {
   // Turn them on for 5 seconds initially to signal the training is starting.
   digitalWrite(green, HIGH);
   digitalWrite(red, HIGH);
-  delay(5000);
+  delay(3000);
   digitalWrite(green, LOW);
   digitalWrite(red, LOW);
 }
 
 void loop() {
-  delay(random(5000,10000));
+  delay(random(3000,7000));
   shoot();
   halt();
 }
