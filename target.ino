@@ -1,29 +1,40 @@
 /*
+  Target Training System
   
+  This application runs a firearm training program that uses random timing intervals.
  */
+
 int green = 9;
 int red = 10;
 
 void setup() {                
-  // initialize the digital pin as an output.
-  // Pin 13 has an LED connected on most Arduino boards:
+  // Initialize pins
   pinMode(green, OUTPUT);
-  pinMode(red, OUTPUT);  
+  pinMode(red, OUTPUT);
+
+  // Turn them on for 5 seconds initially to signal the training is starting.
+  digitalWrite(green, HIGH);
+  digitalWrite(red, HIGH);
+  delay(5000);
+  digitalWrite(green, LOW);
+  digitalWrite(red, LOW);
 }
 
 void loop() {
-  halt();
-  delay(1000);              // wait for a second
+  delay(random(5000,10000));
   shoot();
-  delay(1000);              // wait for a second
+  halt();
 }
 
 void shoot() {
   digitalWrite(green, HIGH);
   digitalWrite(red, LOW);
+  delay(random(2000,3000));
 }
 
 void halt() {
   digitalWrite(red, HIGH);
   digitalWrite(green, LOW);
+  delay(1500);
+  digitalWrite(red, LOW);
 }
