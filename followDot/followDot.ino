@@ -12,22 +12,18 @@ int targetRun = 0;
 
 void setup() 
 {                
-  // Initialize pins
+  //initialize pins
   pinMode(redOne, OUTPUT);
   pinMode(redTwo, OUTPUT);
-
-  // Turn them on for 20 seconds initially
-  digitalWrite(redOne, HIGH);
-  digitalWrite(redTwo, HIGH);
+  
+  //wait for 20 seconds
   delay(12000);
-  digitalWrite(redOne, LOW);
-  digitalWrite(redTwo, LOW);
 }
 
 void loop() 
 {
   numLoops += 1;
-  targetRun = random(1, 40000);
+  targetRun = random(1, 30000);
   
   if(numLoops < runFor)
   {
@@ -40,14 +36,8 @@ void loop()
     else if(targetRun >= 10000 && targetRun < 20000)
     {
       //just redTwo
-      digitalWrite(redTwo, LOW); 
+      digitalWrite(redOne, LOW); 
       digitalWrite(redTwo, HIGH); 
-    }
-    else if(targetRun >= 20000 && targetRun < 30000)
-    {
-      //both redOne and redTwo
-      digitalWrite(redOne, HIGH);
-      digitalWrite(redTwo, HIGH);
     }
     else
     {
@@ -61,21 +51,14 @@ void loop()
   }
   else
   {
-    //AUTO RESET
-    for(int i = 0; i < 8; i++)
-    {
-      digitalWrite(redOne, HIGH);
-      digitalWrite(redTwo, HIGH);
-      delay(500);
-      digitalWrite(redOne, LOW);
-      digitalWrite(redTwo, LOW);
-      delay(500);
-    }
-    
+    //reset
+    digitalWrite(redOne, LOW);
+    digitalWrite(redTwo, LOW);
     numLoops = 0;
     targetRun = 0;
     
-    delay(18000);
+    // wait for 20 seconds
+    delay(12000);
   }
 }
 
