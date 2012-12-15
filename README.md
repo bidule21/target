@@ -1,5 +1,11 @@
 # Rock Creek Outdoors - Target System
 
+## Four Rules Of Gun Safety
+1. All guns are always loaded
+2. Never point a gun at something you are unwilling to destroy
+3. Keep your finger off the trigger until your sights are on the target
+4. Be sure of your target (and what's behind it)
+
 ### Description
 This repo contains several target programs that can be run on the Arduino Uno platform. They are designed as a prototype of different target systems that could then be mass produced in an application specific board.
 
@@ -22,9 +28,3 @@ This program is designed for the shooter to start in a holstered position and th
 ## Memory Target
 ### 3 or more targets
 This program is designed to use the shooter's memory to determine which targets to shoot. A pattern will be flashed using the target dots and then an audible buzzer will sound and the shooter should then shoot the pattern they saw into the targets. The buzzer will sound again (if you haven't finished shooting, stop) and the next pattern will be displayed.
-
-## Four Rules Of Gun Safety
-1. All guns are always loaded
-2. Never point a gun at something you are unwilling to destroy
-3. Keep your finger off the trigger until your sights are on the target
-4. Be sure of your target (and what's behind it)
