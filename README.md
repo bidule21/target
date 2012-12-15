@@ -13,7 +13,7 @@ This repo contains several target programs that can be run on the Arduino Uno pl
 We used several tools to create these programs.
 
 * Arduino IDE - http://arduino.cc/en/Main/Software
-* Ino, command line Arduino toolkit - https://github.com/amperka/ino
+* Ino, command line Arduino toolkit - https://github.com/amperka/ino (on OSX use https://github.com/Tylerc230/ino)
 * Fritzing, circuit diagramming tool (uses *.fz files) - http://fritzing.org
 * Falstad Circuit Simulator, helpful java applet - http://www.falstad.com/circuit/
 
