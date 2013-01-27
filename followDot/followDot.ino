@@ -2,6 +2,7 @@ const int targetOne = 9;
 const int targetTwo = 10;
 const int targetThree = 11;
 const int buzzerPin = 12;
+const int debug = 0;
 
 int numLoops = 0;
 int runFor = 12;
@@ -11,7 +12,10 @@ int duplicateCounter = 0;
 
 void setup() 
 {
-  Serial.begin(9600);
+  if(debug)
+  {
+    Serial.begin(9600);
+  }
 
   //initialize pins
   pinMode(targetOne, OUTPUT);
@@ -31,8 +35,10 @@ void loop()
   }
   else
   {
-    soundBuzzer(2, 500);
     targetReset();
+    soundBuzzer(3, 500);
+    //wait for 20 seconds
+    delay(12000); 
   }
 }
 
@@ -41,8 +47,6 @@ void followDotMode()
   prevRun = currentRun;
   //will be truncated to int between 0 - 2
   currentRun = random(1, 30000) / 10000;
-
-  Serial.println(currentRun);
   
   //check on duplicates
   if(prevRun == currentRun)
@@ -54,16 +58,24 @@ void followDotMode()
     duplicateCounter = 0;
   }
 
-  Serial.print("# dupes - ");
-  Serial.println(duplicateCounter);
+  if(debug)
+  {
+    Serial.println(currentRun);
+    Serial.print("# dupes - ");
+    Serial.println(duplicateCounter);
+  }
 
   //only update the target if we are below the max number of dupes 
   if(duplicateCounter < 2)
   {
+    if(debug)
+    {
+      Serial.println("Target Updated");
+    }
+    
     soundBuzzer(1, 0);
-    Serial.println("Target Updated");
   
-    if(currentRun == 1)
+    if(currentRun == 0)
     {
       //just targetOne
       digitalWrite(targetOne, HIGH);
@@ -111,8 +123,5 @@ void targetReset()
     currentRun = 0;
     prevRun = 0;
     duplicateCounter = 0;
-    
-    //wait for 20 seconds
-    delay(12000); 
 }
 
