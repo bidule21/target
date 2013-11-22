@@ -10,7 +10,7 @@ int currentRun = 0;
 int prevRun = 0;
 int duplicateCounter = 0;
 
-void setup() 
+void setup()
 {
   if(debug)
   {
@@ -22,13 +22,13 @@ void setup()
   pinMode(targetTwo, OUTPUT);
   pinMode(targetThree, OUTPUT);
   pinMode(buzzerPin, OUTPUT);
-  
+
   //wait for 20 seconds
   delay(12000);
 }
 
-void loop() 
-{  
+void loop()
+{
   if(numLoops < runFor)
   {
     followDotMode();
@@ -38,7 +38,7 @@ void loop()
     targetReset();
     soundBuzzer(3, 500);
     //wait for 20 seconds
-    delay(12000); 
+    delay(12000);
   }
 }
 
@@ -47,7 +47,7 @@ void followDotMode()
   prevRun = currentRun;
   //will be truncated to int between 0 - 2
   currentRun = random(1, 30000) / 10000;
-  
+
   //check on duplicates
   if(prevRun == currentRun)
   {
@@ -65,42 +65,43 @@ void followDotMode()
     Serial.println(duplicateCounter);
   }
 
-  //only update the target if we are below the max number of dupes 
+  //only update the target if we are below the max number of dupes
   if(duplicateCounter < 2)
   {
     if(debug)
     {
       Serial.println("Target Updated");
     }
-    
+
     soundBuzzer(1, 0);
-  
+
     if(currentRun == 0)
     {
-      //just targetOne
-      digitalWrite(targetOne, HIGH);
-      digitalWrite(targetTwo, LOW);
-      digitalWrite(targetThree, LOW);
+      turnOnTarget(targetOne);
     }
     else if(currentRun == 1)
     {
-      //just targetTwo
-      digitalWrite(targetOne, LOW); 
-      digitalWrite(targetTwo, HIGH);
-      digitalWrite(targetThree, LOW); 
+      turnOnTarget(targetTwo);
     }
     else
     {
-      //just targetThree
-      digitalWrite(targetOne, LOW); 
-      digitalWrite(targetTwo, LOW);
-      digitalWrite(targetThree, HIGH);
+      turnOnTarget(targetThree);
     }
-      
+
     //wait a random amount of time before cycling
     delay(random(1500, 2500));
     numLoops += 1;
   }
+}
+
+void turnOnTarget(int currentTarget)
+{
+  //turn off all the targets
+  digitalWrite(targetOne, LOW);
+  digitalWrite(targetTwo, LOW);
+  digitalWrite(targetThree, LOW);
+  //turn on the sent in target
+  digitalWrite(currentTarget, HIGH);
 }
 
 void soundBuzzer(int numberOfBuzzes, int interval)
@@ -118,7 +119,7 @@ void targetReset()
     digitalWrite(targetOne, LOW);
     digitalWrite(targetTwo, LOW);
     digitalWrite(targetThree, LOW);
-    
+
     numLoops = 0;
     currentRun = 0;
     prevRun = 0;
