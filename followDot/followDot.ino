@@ -1,7 +1,7 @@
-const int targetOne = 9;
-const int targetTwo = 10;
-const int targetThree = 11;
-const int buzzerPin = 12;
+const int targetOne = 2;
+const int targetTwo = 3;
+const int targetThree = 4;
+const int buzzerPin = 5;
 const int debug = 0;
 
 int numLoops = 0;

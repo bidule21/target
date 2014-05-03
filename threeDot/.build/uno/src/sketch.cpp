@@ -61,22 +61,6 @@ void followDotMode()
     //will be truncated to int between 0 - 2
     currentRun = random(1, 30000) / 10000;
 
-    //check on duplicates
-    if(prevRun == currentRun)
-    {
-        duplicateCounter += 1;
-    }
-    else
-    {
-        duplicateCounter = 0;
-    }
-
-    if(debug)
-    {
-        Serial.println(currentRun);
-        Serial.print("# dupes - ");
-        Serial.println(duplicateCounter);
-    }
 
     //only update the target if we are below the max number of dupes
     if(duplicateCounter < 2)
@@ -121,6 +105,39 @@ void progressivePaceMode()
 
 void anticipationMode()
 {
+
+}
+
+/**
+ * Checks to see if we have more than two duplicate runs
+ * param int currentRun
+ * param int previousRun
+ * return bool
+ */
+void (int currentRun, int previousRun)
+{
+    //check on duplicates
+    if (previousRun == currentRun)
+    {
+        duplicateCounter += 1;
+    }
+    else
+    {
+        duplicateCounter = 0;
+    }
+
+    if (debug)
+    {
+        Serial.println(currentRun);
+        Serial.print("# dupes - ");
+        Serial.println(duplicateCounter);
+    }
+
+    if (duplicateCounter < 2)
+    {
+        return false;
+    }
+    return true;
 }
 
 void turnOnTarget(int currentTarget)
