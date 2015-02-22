@@ -6,16 +6,27 @@ const int gameModeOne = 6;
 const int gameModeTwo = 7;
 const int gameModeThree = 8;
 const int gameModeFour = 9;
-const int debug = 1;
 
-int numLoops = 0;
+const int debug = 0;
+
+/*
+    12 loops seems to be about right for a full
+    size double-stack pistol at a medium pace.
+    If you are really going to burn it down,
+    decrease this. If you want to incorporate a
+    reload, increase this.
+*/
 int runFor = 12;
+int numLoops = 0;
 int currentRun = 0;
 int prevRun = 0;
 int duplicateCounter = 0;
 
 int gameModeButtonValue = 0;
 
+/**
+ * Initialization
+ */
 void setup()
 {
     if(debug)
@@ -37,6 +48,10 @@ void setup()
     playStartUpTune();
 }
 
+/**
+ * Main program loop - sits and waits for input from the
+ * RF receiver (gameModeButtonValue)
+ */
 void loop()
 {
     gameModeButtonValue = 0;
@@ -69,6 +84,10 @@ void loop()
     }
 }
 
+/**
+ * Follow The Dot target mode - a random target will light up for
+ * a random amount of time and then switch to another target.
+ */
 void followDotMode()
 {
     delay(6000);
@@ -106,6 +125,10 @@ void followDotMode()
     targetReset();
 }
 
+/**
+ * Progressive target mode - light up targets in order at an
+ * ever increasing speed.
+ */
 void progressivePaceMode()
 {
     currentRun = 0;
@@ -124,6 +147,10 @@ void progressivePaceMode()
     targetReset();
 }
 
+/**
+ * Anticipation target mode - similar to follow the dot
+ * mode, but with brief pauses in between target switches.
+ */
 void anticipationMode()
 {
     delay(6000);
@@ -163,6 +190,10 @@ void anticipationMode()
     targetReset();
 }
 
+/**
+ * Sundance target mode - quickly turn on one of the targets
+ * and then turn it back off. Runs once.
+ */
 void sundanceMode()
 {
     delay(random(4000, 6000));
@@ -193,9 +224,9 @@ void sundanceMode()
 
 /**
  * Checks to see if we have more than two duplicate runs
- * param int currentRun
- * param int previousRun
- * return bool
+ * param int currentRun Current run's target value
+ * param int previousRun Previous run's target value
+ * return bool Returns true if we've had two runs of the same target
  */
 bool checkForDupes(int currentRun, int previousRun)
 {
@@ -218,6 +249,10 @@ bool checkForDupes(int currentRun, int previousRun)
     return true;
 }
 
+/**
+ * Turns on the light for the current target
+ * param int currentTarget Target to light up
+ */
 void turnOnTarget(int currentTarget)
 {
     turnOffTargets();
@@ -227,6 +262,9 @@ void turnOnTarget(int currentTarget)
     debugLog((String) currentTarget);
 }
 
+/**
+ * Turns off all the target lights
+ */
 void turnOffTargets()
 {
     digitalWrite(targetOne, LOW);
@@ -234,6 +272,9 @@ void turnOffTargets()
     digitalWrite(targetThree, LOW);
 }
 
+/**
+ * Completely reset the targets. Sounds end buzzer.
+ */
 void targetReset()
 {
     turnOffTargets();
@@ -245,6 +286,9 @@ void targetReset()
     duplicateCounter = 0;
 }
 
+/**
+ * Wrapper for sounding the buzzer
+ */
 void soundBuzzer(int numberOfBuzzes, int interval)
 {
     for (int i = 0; i < numberOfBuzzes; i++)
@@ -254,7 +298,11 @@ void soundBuzzer(int numberOfBuzzes, int interval)
     }
 }
 
-void playStartUpTune() {
+/**
+ * Plays a silly tune at startup
+ */
+void playStartUpTune()
+{
     tone(buzzerPin, 5000, 400);
     delay(500);
     tone(buzzerPin, 4000, 400);
@@ -268,6 +316,10 @@ void playStartUpTune() {
     tone(buzzerPin, 3000, 300);
 }
 
+/**
+ * If debugging is on, print messages to the serial monitor.
+ * Enable debugging by setting the debug const to 1.
+ */
 void debugLog(String message)
 {
     if (debug)
